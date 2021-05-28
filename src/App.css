@@ -1,0 +1,88 @@
+html{
+  background-color: #e9eaec;
+  overflow: hidden;
+}
+.Outer{
+  background-color: #e9eaec;
+  height: 600px;
+  margin-top: 70px;
+  overflow: scroll;
+  overflow-x: hidden;
+  margin-bottom: 20px;
+}
+
+.studentComponent {
+  height: 210px;
+  background-color: white;
+  overflow: hidden;
+  display: inline-flexbox;
+  margin-left: 100px;
+  margin-right: 100px;
+  color: black;
+  font-family: 'Raleway', sans-serif;
+
+  }
+
+img{
+  float: left;
+  position: relative;
+  border-radius: 50%;
+  box-shadow: #e9eaec;
+  width: 150px;
+  height: 150px;
+  border-color: rgb(221, 215, 215);
+  margin: 10px;
+  margin-top: 20px;
+  border-width: 1px;
+  box-sizing: border-box;
+  block-size: 20%;
+  border-style:groove;
+}
+.App-link {
+  color: #61dafb;
+}
+
+h3{
+  margin-left: 150px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  
+}
+.name{
+  text-transform: uppercase; 
+  /* letter-spacing: 1px; */
+}
+p{
+  margin-left: 200px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 20;
+  color: rgb(66, 62, 62);
+}
+.line{
+  border-bottom: 1px solid rgb(230, 225, 225);; 
+}
+input[type=text] {
+  width: 86.56%;
+  position: inherit;
+  height: 30px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid rgb(187, 183, 183);
+  font-size: 24px;
+  font-weight: 100;
+  color: rgb(74, 80, 80); 
+}
+.textInput{
+  margin-top: -35px;
+  margin-left: 100px;
+  position: fixed;
+  font-family: 'Raleway', sans-serif;
+}
+input[type=text]:focus {  
+  border-bottom: 2px solid rgb(107, 106, 106);
+}
+input::placeholder{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  font-size: 20px;
+}
