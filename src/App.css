@@ -10,22 +10,23 @@ html{
   overflow-x: hidden;
   margin-bottom: 20px;
 }
-
-.studentComponent {
-  height: 210px;
+.studentComponent{
   background-color: white;
-  overflow: hidden;
-  display: inline-flexbox;
   margin-left: 100px;
   margin-right: 100px;
+}
+.studentDetails {
+  height: 190px;
+  overflow: hidden;
+  display: inline-flexbox;  
   color: black;
   font-family: 'Raleway', sans-serif;
-
   }
 
 img{
   float: left;
   position: relative;
+  margin-left: 100px;
   border-radius: 50%;
   box-shadow: #e9eaec;
   width: 150px;
@@ -38,6 +39,7 @@ img{
   block-size: 20%;
   border-style:groove;
 }
+
 .App-link {
   color: #61dafb;
 }
@@ -53,17 +55,16 @@ h3{
   /* letter-spacing: 1px; */
 }
 p{
-  margin-left: 200px;
+  margin-left: 20px;
   font-family: 'Raleway', sans-serif;
   font-weight: 20;
   color: rgb(66, 62, 62);
 }
 .line{
-  border-bottom: 1px solid rgb(230, 225, 225);; 
+  border-bottom: 1px solid rgb(182, 177, 177);; 
 }
 input[type=text] {
-  width: 86.56%;
-  position: inherit;
+  width: 1315px;
   height: 30px;
   outline: none;
   border: none;
@@ -78,6 +79,9 @@ input[type=text] {
   position: fixed;
   font-family: 'Raleway', sans-serif;
 }
+#search{
+  position: absolute;
+}
 input[type=text]:focus {  
   border-bottom: 2px solid rgb(107, 106, 106);
 }
@@ -86,3 +90,44 @@ input::placeholder{
   font-weight: 200;
   font-size: 20px;
 }
+button{
+  float: right;
+  position: relative;
+  margin-top: -200px ;
+  margin-right: 50px;
+  font-size: 50px;
+  color: rgb(117, 119, 121);
+  background-color: transparent;
+  border: none;
+}
+.plus:hover{
+    color: #050505 !important;
+}
+.minus:hover{
+  color: #050505 !important;
+}
+.plus{
+  box-shadow:#050505;
+}
+.minus{
+  box-shadow: #050505;
+}
+.collapse{
+  display: none;
+  
+}
+.collapse.open {
+  display: block;
+}
+.grades{
+  color: rgb(92, 84, 84);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  font-style: italic;
+  margin-left: 15%;
+  margin-top: 1.5%;
+}
+.active, .collapse.open:hover {
+  background-color: #555;
+}
+
