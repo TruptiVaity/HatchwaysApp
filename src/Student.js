@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Tag from './Tag';
 
 function Student(props){
-       
-    const expandButton =  <button type="button" onClick={() => props.handleChange(props.student.id)} className="plus">+</button>
-    const collapseButton =  <button type="button" onClick={() => props.handleChange(props.student.id)} className="minus">-</button>
-
-    var sum = 0;
-    for(var i = 0; i < props.student.grades.length; i++){
-        sum += parseFloat(props.student.grades[i]);
+    
+    const [id, setId] = useState([]);
+    const [tags, setTags] = useState(JSON.parse(localStorage.getItem('TagsList' + props.student.id)));
+    const selectedTags = tags => { 
+        setTags([...tags]);
+        setId(props.student.id);   
     }
 
+    const expandButton =  <button type="button" onClick={() => props.handleChange(props.student.id)} className="plus">+</button>
+    const collapseButton =  <button type="button" onClick={() => props.handleChange(props.student.id)} className="minus">-</button>
+    
+    
+    useEffect(() => {
+        const tagData = JSON.stringify({tags, id});
+        localStorage.setItem('TagsList' + id, tagData)
+    }, [tags, id])
+    
+    const getGradesAverage = () => {
+        let sum = 0;
+        const totalGrades = props.student.grades.length;
+        for(let i = 0; i < totalGrades; i++){
+            sum += parseFloat(props.student.grades[i]);
+        }
+        return sum/totalGrades;
+    }
+    
     return(
         <div className = "studentComponent">
             <div className = "image">
@@ -20,7 +38,7 @@ function Student(props){
                 <p>Email: {props.student.email}</p>
                 <p>Company: {props.student.company}</p>
                 <p>Skill: {props.student.skill}</p>
-                <p>Average: {sum/props.student.grades.length}%</p>   
+                <p>Average: {getGradesAverage()}%</p>   
             </div>
             <div>
                 {props.student.expanded ? collapseButton : expandButton }
@@ -36,13 +54,18 @@ function Student(props){
                 <span>Test7: {props.student.grades[6]}% </span><br></br>
                 <span>Test8: {props.student.grades[7]}% </span><br></br>
             </div>
+            <div> 
+            <Tag selectedTags={selectedTags} tags={props.student.tags}/>                 
             </div>
-            <div className="line"></div>
+        </div>
+        <div className="line"></div>
         </div>
     )
+    
 }
 
-export default Student
+Student.prototype = {
 
-
+}
+export default Student;
 

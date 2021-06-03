@@ -2,7 +2,6 @@ import './App.css';
 import Student from './Student'
 import React from 'react';
 
-
 class App extends React.Component {
 
   constructor(){
@@ -12,10 +11,12 @@ class App extends React.Component {
       loading: false,
       student: [],
       searchTerm: '',
+      searchTag: '',
+      
     }
 
     this.handleChange = this.handleChange.bind(this)
-
+    this.getBySearchTerm = this.getBySearchTerm.bind(this)
   }
   componentDidMount(){
     fetch("https://api.hatchways.io/assessment/students")
@@ -23,16 +24,18 @@ class App extends React.Component {
       .then(({students}) => {
         this.setState({
           isLoaded: true,
-          items: students,
+          allStudents: students,
           searchTerm: '',
+          searchTag: '',
         })
+        
       })
+      localStorage.clear()
   }
   
   handleChange(id){
-    console.log("Changed", id)
     this.setState(prevState => {
-      const updatedView = prevState.items.map(item => {
+      const updatedView = prevState.allStudents.map(item => {
         if(item.id === id){
           return{
             ...item,
@@ -41,53 +44,100 @@ class App extends React.Component {
         }
         return item
       })
-      console.log(prevState.items)
-      console.log(updatedView)
       return{
-        items: updatedView
+        allStudents: updatedView
       }
     })
   }
-    
-  render(){
 
-    //Display loading if the data is not loading yet
-    const {isLoaded, items} = this.state;
-    if(!isLoaded){ return <div>Loading Data...</div> }
-
-    const filteredStudents = items.filter(item =>{
-      return item.firstName.toLowerCase().includes(this.state.searchTerm.toLowerCase)
+  getBySearchTerm(event){
+    this.setState({
+      searchTerm: event.target.value
     })
 
-    //searchTerm is the text written in the input box
-    const studentComponents = items.filter((item) => {
-      if(this.state.searchTerm === ''){ 
-        // console.log('without filter')
-        // console.log(this.state.searchTerm)
-        return item;
-        
-      } else if(item.firstName.toLowerCase().startsWith(this.state.searchTerm.toLowerCase()) || 
-                item.lastName.toLowerCase().startsWith(this.state.searchTerm.toLowerCase())){
-        // console.log('filtered')
-        // console.log(this.state.searchTerm)
-        return item;    
-      }
-    }).map(item=>(<Student 
+  }
+
+  renderStudentList(students){
+    
+    return students && students.map(item=>(<Student 
       key={item.id} 
       student = {item}
-      handleChange = {this.handleChange} />));
+      handleChange = {this.handleChange}
+      />))
+  }
+
+  getFilteredStudents(allStudents){
+    let parseTags = [];
+    
+    return allStudents && allStudents.filter((student) => {
+
+      if(this.state.searchTerm === '' && this.state.searchTag === ''){ 
+        return student;
+        
+      } else if (this.state.searchTerm === '' && this.state.searchTag !== "")
+        {
+          return this.getFilteredByTag(student)
+        }
+        else if(this.state.searchTag === "" && 
+        (student.firstName.toLowerCase().startsWith(this.state.searchTerm.toLowerCase()) || 
+        student.lastName.toLowerCase().startsWith(this.state.searchTerm.toLowerCase())))
+        {
+            return student;    
+        }
+        else if(this.state.searchTag !== "" && 
+        (student.firstName.toLowerCase().startsWith(this.state.searchTerm.toLowerCase()) || 
+        student.lastName.toLowerCase().startsWith(this.state.searchTerm.toLowerCase())))
+        {    
+          return this.getFilteredByTag(student);
+        }
+    });
+  }
+
+  getFilteredByTag(student){
+  
+    let parseTags = [];
+    const tagsOutput = localStorage.getItem('TagsList' + student.id);
+    if(tagsOutput !== null){
+      parseTags = JSON.parse(tagsOutput);
+          if (parseTags.tags && parseTags.tags.some(tag =>tag.startsWith(this.state.searchTag.toLowerCase())))
+          {
+            student.tags = parseTags.tags;
+            return student;
+          }
+    }
+  }
+  
+
+  render(){
+
+    const {isLoaded, allStudents} = this.state;
+    if(!isLoaded){ return <div>Loading Data...</div> }
+
+    const filteredStudents = this.getFilteredStudents(allStudents);
 
     return (
       <div className="Outer">
       <div>
         <input 
-          placeholder="Search by name" type="text" className="textInput" id="search"
-          onChange={event => {this.setState({searchTerm: event.target.value})}} 
+          placeholder="Search by name" 
+          type="text" 
+          className="textInput" 
+          id="search"
+          autoComplete="off"
+          onChange={this.getBySearchTerm} 
         />
       </div>
-      
-        {studentComponents}
-      
+      <div>
+        <input 
+          placeholder="Search by tag" 
+          type="text" 
+          className="tagInput" 
+          id="searchTag"
+          autoComplete="off"
+          onChange={event => {this.setState({searchTag: event.target.value})}} 
+        />
+      </div>
+        {this.renderStudentList(filteredStudents)}
       </div>
       
       

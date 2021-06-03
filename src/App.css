@@ -4,11 +4,11 @@ html{
 }
 .Outer{
   background-color: #e9eaec;
-  height: 600px;
-  margin-top: 70px;
+  height: 550px;
+  margin-top: 110px;
   overflow: scroll;
   overflow-x: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 .studentComponent{
   background-color: white;
@@ -33,7 +33,7 @@ img{
   height: 150px;
   border-color: rgb(221, 215, 215);
   margin: 10px;
-  margin-top: 20px;
+  
   border-width: 1px;
   box-sizing: border-box;
   block-size: 20%;
@@ -52,7 +52,6 @@ h3{
 }
 .name{
   text-transform: uppercase; 
-  /* letter-spacing: 1px; */
 }
 p{
   margin-left: 20px;
@@ -74,7 +73,8 @@ input[type=text] {
   color: rgb(74, 80, 80); 
 }
 .textInput{
-  margin-top: -35px;
+  margin-top: -70px;
+  height: 20px;
   margin-left: 100px;
   position: fixed;
   font-family: 'Raleway', sans-serif;
@@ -90,10 +90,17 @@ input::placeholder{
   font-weight: 200;
   font-size: 20px;
 }
+.tagInput{
+  margin-top: -35px;
+  margin-left: 100px;
+  position: fixed;
+  margin-bottom: 10px;
+  font-family: 'Raleway', sans-serif; 
+}
 button{
   float: right;
   position: relative;
-  margin-top: -200px ;
+  margin-top: -160px ;
   margin-right: 50px;
   font-size: 50px;
   color: rgb(117, 119, 121);
@@ -124,10 +131,18 @@ button{
   font-family: 'Raleway', sans-serif;
   font-weight: 200;
   font-style: italic;
-  margin-left: 15%;
+  margin-left: 200px;
   margin-top: 1.5%;
 }
-.active, .collapse.open:hover {
-  background-color: #555;
+.addTag{
+  width: 100px !important;
+  margin-top: 10px;
 }
-
+.tagsListed{
+  background-color: rgb(179, 192, 187);
+  border-radius: 10%;
+  width: max-content;
+  height: fit-content;
+  padding: 5px;
+  margin-bottom: 5px;
+}
